@@ -9,6 +9,7 @@ junitVersion = "1.3.0"
 ktor = "3.4.0"
 koin = "4.2.0-RC1"
 kotlin = "2.3.10"
+kotzilla = "2.0.3"
 lifecycleRuntimeKtx = "2.10.0"
 
 [libraries]
@@ -31,8 +32,9 @@ ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.r
 ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
 koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+kotzilla-sdk-compose = { group = "io.kotzilla", name = "kotzilla-sdk-compose", version.ref = "kotzilla" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
+kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }

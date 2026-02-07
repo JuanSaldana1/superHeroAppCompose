@@ -81,6 +81,10 @@ dependencies {
 	implementation(libs.koin)
 	implementation(libs.koin.compose)
 
+	// KOTZILLA
+	implementation(libs.kotzilla.sdk.compose)
+
+
 	implementation(platform(libs.androidx.compose.bom))
 
 	testImplementation(libs.junit)
