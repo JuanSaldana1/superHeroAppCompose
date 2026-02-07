@@ -74,12 +74,14 @@ dependencies {
 
 	// KTOR
 	implementation(libs.ktor)
-	implementation(libs.ktor.client.okhttp)
 	implementation(libs.ktor.client.cio)
+	implementation(libs.ktor.client.okhttp)
 
 	// KOIN
 	implementation(libs.koin)
 	implementation(libs.koin.compose)
+	implementation(libs.koin.core)
+	implementation(libs.koin.ktor)
 
 	// KOTZILLA
 	implementation(libs.kotzilla.sdk.compose)
