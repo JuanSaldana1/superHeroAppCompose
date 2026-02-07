@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.kotlin.compose)
@@ -17,6 +19,17 @@ android {
 		versionName = "1.0"
 
 		testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+		val keystoreFile = project.rootProject.file("local.properties")
+		val properties = Properties()
+		properties.load(keystoreFile.inputStream())
+
+		//return empty key in case something goes wrong
+		val apiKey = properties.getProperty("superHeroAPIKey") ?: ""
+		buildConfigField(
+			type = "String",
+			name = "API_KEY",
+			value = apiKey
+		)
 	}
 
 	buildFeatures {
@@ -41,9 +54,6 @@ android {
 		sourceCompatibility = JavaVersion.VERSION_11
 		targetCompatibility = JavaVersion.VERSION_11
 	}
-	buildFeatures {
-		compose = true
-	}
 }
 
 dependencies {
@@ -61,6 +71,13 @@ dependencies {
 	implementation(libs.androidx.compose.ui.tooling.preview)
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.androidx.lifecycle.runtime.ktx)
+
+	// KTOR
+	implementation(libs.ktor)
+	implementation(libs.ktor.client.okhttp)
+	implementation(libs.ktor.client.cio)
+
+	// KOIN
 	implementation(libs.koin)
 	implementation(libs.koin.compose)
 

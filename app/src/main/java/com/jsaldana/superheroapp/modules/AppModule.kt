@@ -1,16 +1,10 @@
 package com.jsaldana.superheroapp.modules
 
+import com.jsaldana.superheroapp.BuildConfig
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 
 val appModule = module {
-	//single { BuildConfig.BASE_URL }
-}
-
-
-class AppModule {
-
-	fun providePrivateKey(): String {
-		return "private_key"
-	}
+	single(named("privateKey")) { BuildConfig.API_KEY }
 }
