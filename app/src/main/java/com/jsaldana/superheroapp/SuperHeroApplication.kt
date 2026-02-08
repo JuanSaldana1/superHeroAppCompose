@@ -11,7 +11,7 @@ import org.koin.core.context.GlobalContext.startKoin
 class SuperHeroApplication : Application() {
 	override fun onCreate() {
 		super.onCreate()
-		//FacebookSdk.sdkInitialize(this)
+
 		startKoin {
 			androidLogger()
 			androidContext(this@SuperHeroApplication)
