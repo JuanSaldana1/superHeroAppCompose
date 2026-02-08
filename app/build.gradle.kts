@@ -72,6 +72,9 @@ dependencies {
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.androidx.lifecycle.runtime.ktx)
 
+	// Facebook
+	implementation(libs.facebook.android.sdk)
+
 	// KTOR
 	implementation(libs.ktor)
 	implementation(libs.ktor.client.cio)
@@ -87,7 +90,6 @@ dependencies {
 
 	// KOTZILLA
 	implementation(libs.kotzilla.sdk.compose)
-
 
 	implementation(platform(libs.androidx.compose.bom))
 
