@@ -1,7 +1,6 @@
 package com.jsaldana.superheroapp
 
 import android.app.Application
-import com.facebook.FacebookSdk
 import com.jsaldana.superheroapp.modules.appModule
 import com.jsaldana.superheroapp.modules.networkModule
 import org.koin.android.ext.koin.androidContext

@@ -54,6 +54,10 @@ android {
 		sourceCompatibility = JavaVersion.VERSION_11
 		targetCompatibility = JavaVersion.VERSION_11
 	}
+
+	/*lint {
+		baseline = file("lint-baseline.xml")
+	}*/
 }
 
 dependencies {
@@ -83,6 +87,15 @@ dependencies {
 	implementation(libs.ktor.client.logging)
 	implementation(libs.ktor.client.okhttp)
 	implementation(libs.ktor.serialization.kotlinx.json)
+
+
+	// FROGO-SDK
+	// implementation(libs.frogo.android)
+
+	// UNITY3D-ADS
+	implementation(libs.unity3D.ads)
+
+
 
 	// KOIN
 	implementation(libs.koin)
