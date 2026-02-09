@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class SuperHero(
 	val id: Long,
 	val name: String,
-	val image: String
+	val image: String,
+	val work: String
 	//val powerstats: PowerStatsDTO,
 )

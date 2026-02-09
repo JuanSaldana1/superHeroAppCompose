@@ -18,6 +18,7 @@ data class SuperHeroDTO(
 	fun toModel() = SuperHero(
 		id = id,
 		name = name,
-		image = images.md
+		image = images.md,
+		work = work.occupation
 	)
 }
