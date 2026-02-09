@@ -30,9 +30,10 @@ val networkModule = module {
 		HttpClient(OkHttp) {
 			install(ContentNegotiation) {
 				json(Json {
+					explicitNulls = false
 					ignoreUnknownKeys = true
 					isLenient = true
-					explicitNulls = false
+					prettyPrint = true
 				})
 			}
 

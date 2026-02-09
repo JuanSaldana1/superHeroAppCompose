@@ -1,11 +1,39 @@
 package com.jsaldana.superheroapp
 
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.jsaldana.superheroapp.data.model.SuperHero
 import com.jsaldana.superheroapp.repository.SuperHeroRepository
+import kotlinx.coroutines.launch
 
 class MainViewModel(
 	private val repository: SuperHeroRepository,
 ) : ViewModel() {
-	suspend fun getSuperHeroById(id: String): Result<Any> =
-		repository.getSuperHeroById(id)
+
+	var state by mutableStateOf<SuperheroState>(SuperheroState.Idle)
+		private set
+
+	fun loadHero(id: String) {
+		viewModelScope.launch {
+			state = SuperheroState.Loading
+			repository.getSuperHeroById(id)
+				.onSuccess { hero ->
+					state = SuperheroState.Success(hero)
+				}
+				.onFailure { error ->
+					state = SuperheroState.Error(error.message ?: "Error")
+				}
+		}
+	}
+}
+
+sealed class SuperheroState {
+	object Idle : SuperheroState()
+	object Loading : SuperheroState()
+	data class Success(val hero: SuperHero) : SuperheroState()
+	data class Error(val message: String) : SuperheroState()
 }

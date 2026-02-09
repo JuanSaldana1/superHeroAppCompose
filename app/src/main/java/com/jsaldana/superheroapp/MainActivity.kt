@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -12,40 +11,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.jsaldana.superheroapp.ui.theme.SuperHeroAppTheme
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
-
-	private val viewModel: MainViewModel by viewModel()
-
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		enableEdgeToEdge()
 		setContent {
 			SuperHeroAppTheme {
-				Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-					Greeting(
-						name = "Android",
-						modifier = Modifier.padding(innerPadding),
-					)
+				Scaffold { innerPadding ->
+					Greeting(modifier = Modifier.padding(innerPadding))
 				}
 			}
 		}
 	}
 }
 
+@Preview
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(modifier: Modifier = Modifier, viewModel: MainViewModel = koinViewModel()) {
+
 	Text(
-		text = "Hello $name!",
+		text = viewModel.state.toString(),
 		modifier = modifier
 	)
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-	SuperHeroAppTheme {
-		Greeting("Android")
-	}
 }
