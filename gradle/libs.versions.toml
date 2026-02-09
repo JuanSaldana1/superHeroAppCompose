@@ -50,4 +50,5 @@ unity3D-ads = { group = "com.unity3d.ads", name = "unity-ads", version.ref = "un
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotzilla = { id = "io.kotzilla.kotzilla-plugin", version.ref = "kotzilla" }

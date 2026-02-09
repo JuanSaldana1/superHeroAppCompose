@@ -17,15 +17,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-private const val BASE_URL = "https://superheroapi.com/api/"
-
-private const val TIME_OUT = 6000
-
 val networkModule = module {
-	single { "https://superheroapi.com/api/" }
-	// Ktor
-	single { SuperHeroServiceImpl(get()) }
-
 	single {
 		HttpClient(OkHttp) {
 			install(ContentNegotiation) {
@@ -65,4 +57,7 @@ val networkModule = module {
 			}
 		}
 	}
+
+	// Ktor
+	single { SuperHeroServiceImpl(get()) }
 }

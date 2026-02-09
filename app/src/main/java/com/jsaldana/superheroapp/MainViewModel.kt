@@ -21,6 +21,12 @@ class MainViewModel(
 		viewModelScope.launch {
 			state = SuperheroState.Loading
 			repository.getAllSuperheroes()
+				.onSuccess { list ->
+					state = SuperheroState.Success(list) // Pasamos la lista completa
+				}
+				.onFailure { error ->
+					state = SuperheroState.Error(error.message ?: "Error desconocido")
+				}
 		}
 	}
 }
@@ -28,6 +34,6 @@ class MainViewModel(
 sealed class SuperheroState {
 	object Idle : SuperheroState()
 	object Loading : SuperheroState()
-	data class Success(val hero: SuperHero) : SuperheroState()
+	data class Success(val heroes: List<SuperHero>) : SuperheroState() // Cambio aquí: List
 	data class Error(val message: String) : SuperheroState()
 }

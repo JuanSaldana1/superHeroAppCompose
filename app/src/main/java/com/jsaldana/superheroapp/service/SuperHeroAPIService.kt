@@ -22,7 +22,7 @@ class SuperHeroServiceImpl(
 			url {
 				appendPathSegments("all.json")
 			}
-		}.body()
+		}.body<List<SuperHeroDTO>>()
 
 	/*override suspend fun getSuperHeroById(id: String): SuperheroResponse =
 		client.get(BASE_URL) {
