@@ -64,6 +64,9 @@ dependencies {
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.androidx.lifecycle.runtime.ktx)
 
+	// COIL
+	implementation(libs.coil.compose)
+
 	// Facebook
 	implementation(libs.facebook.android.sdk)
 
