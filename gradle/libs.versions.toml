@@ -15,6 +15,7 @@ ktor = "3.4.0"
 lifecycleRuntimeKtx = "2.10.0"
 frogoAndroid = "2.3.6"
 unity3DAds = "4.16.6"
+material3 = "1.4.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -30,7 +31,9 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
 facebook-android-sdk = { group = "com.facebook.android", name = "facebook-android-sdk", version.ref = "facebook" }
 frogo-android = { group = "com.github.frogobox", name = "frogo-sdk", version.ref = "frogoAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

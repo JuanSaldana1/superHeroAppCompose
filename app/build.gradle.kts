@@ -49,6 +49,7 @@ android {
 }
 
 dependencies {
+	implementation(libs.androidx.material3)
 	androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 	androidTestImplementation(libs.androidx.espresso.core)
 	androidTestImplementation(libs.androidx.junit)
@@ -66,6 +67,7 @@ dependencies {
 
 	// COIL
 	implementation(libs.coil.compose)
+	implementation(libs.coil.network.ktor)
 
 	// Facebook
 	implementation(libs.facebook.android.sdk)
