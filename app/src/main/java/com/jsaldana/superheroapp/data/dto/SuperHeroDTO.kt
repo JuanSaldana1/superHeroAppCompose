@@ -19,6 +19,8 @@ data class SuperHeroDTO(
 		id = id,
 		name = name,
 		image = images.md,
-		work = work.occupation
+		work = work.occupation,
+		race = appearance.race,
+		gender = appearance.gender
 	)
 }
