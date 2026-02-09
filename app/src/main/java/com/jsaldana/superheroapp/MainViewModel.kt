@@ -17,16 +17,10 @@ class MainViewModel(
 	var state by mutableStateOf<SuperheroState>(SuperheroState.Idle)
 		private set
 
-	fun loadHero(id: String) {
+	fun getAllHeroes() {
 		viewModelScope.launch {
 			state = SuperheroState.Loading
-			repository.getSuperHeroById(id)
-				.onSuccess { hero ->
-					state = SuperheroState.Success(hero)
-				}
-				.onFailure { error ->
-					state = SuperheroState.Error(error.message ?: "Error")
-				}
+			repository.getAllSuperheroes()
 		}
 	}
 }

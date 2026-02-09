@@ -6,7 +6,17 @@ import com.jsaldana.superheroapp.service.SuperHeroAPIService
 class SuperHeroRepository(
 	private val apiService: SuperHeroAPIService
 ) {
-	suspend fun getSuperHeroById(id: String): Result<SuperHero> {
+
+	suspend fun getAllSuperheroes(): Result<List<SuperHero>> {
+		return try {
+			val response = apiService.getAllSuperheroes()
+			Result.success(response.map { it.toModel() })
+		} catch (e: Exception) {
+			Result.failure(e)
+		}
+	}
+
+	/*suspend fun getSuperHeroById(id: String): Result<SuperHero> {
 		return try {
 			val response = apiService.getSuperHeroById(id)
 			if (response.response == "success") {
@@ -17,5 +27,5 @@ class SuperHeroRepository(
 		} catch (e: Exception) {
 			Result.failure(e)
 		}
-	}
+	}*/
 }

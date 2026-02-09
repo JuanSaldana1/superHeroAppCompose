@@ -30,9 +30,10 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun Greeting(modifier: Modifier = Modifier, viewModel: MainViewModel = koinViewModel()) {
+	val heroResponse = viewModel.getAllHeroes().toString()
 
 	Text(
-		text = viewModel.state.toString(),
+		text = heroResponse,
 		modifier = modifier
 	)
 }
