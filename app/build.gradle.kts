@@ -51,7 +51,6 @@ android {
 dependencies {
 	implementation(libs.androidx.activity.compose)
 	implementation(libs.androidx.compose.foundation.layout)
-	implementation(libs.androidx.compose.material)
 	implementation(libs.androidx.compose.material.icons.core)
 	implementation(libs.androidx.compose.material.icons.core.android)
 	implementation(libs.androidx.compose.material.icons.core.extended)
@@ -66,7 +65,6 @@ dependencies {
 	implementation(libs.androidx.compose.ui.tooling.preview)
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.androidx.lifecycle.runtime.ktx)
-	implementation(libs.androidx.navigation.safe.args.generator)
 	implementation(libs.androidx.navigation.compose)
 
 	androidTestImplementation(libs.androidx.compose.ui.test.junit4)
@@ -89,7 +87,6 @@ dependencies {
 	implementation(libs.ktor.client.content.negotiation)
 	implementation(libs.ktor.client.core)
 	implementation(libs.ktor.client.logging)
-	implementation(libs.ktor.client.okhttp)
 	implementation(libs.ktor.serialization.kotlinx.json)
 
 

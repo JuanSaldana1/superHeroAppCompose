@@ -60,7 +60,11 @@ fun SuperheroListScreen(state: SuperheroState, onLoad: () -> Unit, onHeroClick: 
 				is SuperheroState.Loading -> CircularProgressIndicator(Modifier.align(Alignment.Center))
 				is SuperheroState.Success -> {
 					LazyColumn {
-						items(state.heroes) { hero ->
+						items(
+							items = state.heroes,
+							key = { it.id }, // <--- ESTO ES CRÍTICO para el rendimiento
+							contentType = { "hero_card" } // Ayuda al reciclaje de vistas
+						) { hero ->
 							Card(
 								modifier = Modifier
 									.fillMaxWidth()

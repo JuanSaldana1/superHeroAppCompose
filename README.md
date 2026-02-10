@@ -4,29 +4,37 @@ An Android application that displays information about superheroes using the [Su
 
 ## 🚀 Overview
 
-SuperHeroApp is a modern Android application built with Jetpack Compose, showcasing a list of superheroes with their details fetched from a remote API. It demonstrates the use of Ktor for networking, Koin for dependency injection, and follow Clean Architecture principles.
+SuperHeroApp is a modern Android application built with Jetpack Compose, showcasing a list of superheroes with their details fetched from a remote API. It demonstrates the use of Ktor for networking, Koin for dependency injection, and follows MVVM (Model-View-ViewModel) architecture.
 
 ## 🛠 Tech Stack
 
 - **Language:** [Kotlin](https://kotlinlang.org/)
-- **UI Framework:** [Jetpack Compose](https://developer.android.com/jetpack/compose)
+- **UI Framework:** [Jetpack Compose](https://developer.android.com/jetpack/compose) with Material 3
 - **Dependency Injection:** [Koin](https://insert-koin.io/)
-- **Networking:** [Ktor](https://ktor.io/)
+- **Networking:** [Ktor](https://ktor.io/) with OkHttp engine
+- **Image Loading:** [Coil](https://coil-kt.github.io/coil/)
 - **Serialization:** [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization)
 - **Architecture:** MVVM (Model-View-ViewModel)
 - **Build System:** Gradle (Kotlin DSL)
+- **Other Integrations:** Kotzilla SDK, Facebook SDK, Unity Ads (configured but check implementation status)
 
 ## 📁 Project Structure
 
 ```text
 app/src/main/java/com/jsaldana/superheroapp/
 ├── data/
-│   ├── dto/           # Data Transfer Objects for API responses
-│   └── model/         # Domain models
-├── modules/           # Koin DI modules (AppModule, NetworkModule)
-├── repository/        # Data repositories
+│   ├── dto/           # Data Transfer Objects for API responses (mapping via toModel())
+│   └── model/         # Domain models used in UI
+├── modules/           # Koin DI modules
+│   ├── AppModule.kt   # Repositories and ViewModels definitions
+│   └── NetworkModule.kt # Ktor HttpClient configuration
+├── repository/        # Data repositories (using Result wrapper for error handling)
 ├── service/           # API service implementation (Ktor)
-├── ui/theme/          # Compose theme definitions (Color, Type, Theme)
+├── ui/                # UI Components
+│   ├── theme/         # Compose theme definitions (Color, Type, Theme)
+│   ├── Screens.kt     # Composable screens (List, Detail)
+│   ├── SampleData.kt  # Previews data
+│   └── SuperheroNavigation.kt # Navigation graph
 ├── MainActivity.kt    # Main entry point activity
 ├── MainViewModel.kt   # ViewModel for the main screen
 └── SuperHeroApplication.kt # Application class for Koin initialization
@@ -35,8 +43,9 @@ app/src/main/java/com/jsaldana/superheroapp/
 ## 📋 Requirements
 
 - Android Studio Ladybug | 2024.2.1 or newer (recommended)
-- Android SDK 31+ (Min SDK: 31, Target SDK: 36)
-- JDK 11 or newer
+- **Android SDK:** Min SDK 31, Target SDK 36
+- **JDK:** 11 or newer
+- **Gradle:** Kotlin DSL (`*.gradle.kts`)
 
 ## ⚙️ Setup & Run
 
@@ -54,11 +63,11 @@ app/src/main/java/com/jsaldana/superheroapp/
 
 ## 📜 Available Scripts
 
-The project uses Gradle. Common commands (using the wrapper):
+The project uses the Gradle wrapper. Common commands:
 
 - **Build project:**
   ```bash
-  ./gradlew build
+  ./gradlew assembleDebug
   ```
 - **Run Unit Tests:**
   ```bash
@@ -73,16 +82,20 @@ The project uses Gradle. Common commands (using the wrapper):
   ./gradlew clean
   ```
 
-## 🔐 Environment Variables
+## 🔐 Environment Variables & Configuration
 
-No specific environment variables are required for basic functionality. The application uses a public API.
+The application uses the public [SuperHero API](https://akabab.github.io/superhero-api/api/). No API key is currently required for basic functionality.
+
+- **Networking:** Configured in `NetworkModule.kt` using Ktor's `ContentNegotiation` with JSON settings: `ignoreUnknownKeys = true`, `isLenient = true`, `explicitNulls = false`.
+- **DI:** Modules are initialized in `SuperHeroApplication.kt`.
 
 > [!TODO]
-> If future integrations (like Facebook SDK or Unity Ads) require API keys, they should be documented here.
+> - Implement/Verify Facebook SDK and Unity Ads initialization.
+> - Add API keys to `local.properties` or environment variables if needed for protected endpoints.
 
 ## 🧪 Tests
 
-- **Unit Tests:** Located in `app/src/test/java/`.
+- **Unit Tests:** Located in `app/src/test/java/`. Uses JUnit 4 and `runBlocking` for suspend functions.
 - **Instrumented Tests:** Located in `app/src/androidTest/java/`.
 
 To run tests from Android Studio, right-click on the `test` or `androidTest` folder and select **Run 'Tests in...'**.

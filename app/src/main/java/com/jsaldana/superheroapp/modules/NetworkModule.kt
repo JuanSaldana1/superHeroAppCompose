@@ -1,9 +1,13 @@
 package com.jsaldana.superheroapp.modules
 
 import android.util.Log
+import coil3.ImageLoader
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import coil3.request.CachePolicy
+import coil3.request.crossfade
 import com.jsaldana.superheroapp.service.SuperHeroServiceImpl
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -15,11 +19,12 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val networkModule = module {
 	single {
-		HttpClient(OkHttp) {
+		HttpClient(CIO) {
 			install(ContentNegotiation) {
 				json(Json {
 					explicitNulls = false
@@ -30,8 +35,8 @@ val networkModule = module {
 			}
 
 			install(HttpTimeout) {
-				requestTimeoutMillis = 30_000
-				connectTimeoutMillis = 15_000
+				requestTimeoutMillis = 10000
+				connectTimeoutMillis = 10000
 				socketTimeoutMillis = 30_000
 			}
 
@@ -60,4 +65,18 @@ val networkModule = module {
 
 	// Ktor
 	single { SuperHeroServiceImpl(get()) }
+}
+
+val imageLoaderModule = module {
+	single {
+		ImageLoader.Builder(androidContext())
+			.components {
+				// 'get()' inyecta tu cliente Ktor configurado previamente
+				add(KtorNetworkFetcherFactory(get<HttpClient>()))
+			}
+			.crossfade(true)
+			.memoryCachePolicy(CachePolicy.ENABLED)
+			.diskCachePolicy(CachePolicy.ENABLED)
+			.build()
+	}
 }
