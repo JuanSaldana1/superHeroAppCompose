@@ -16,16 +16,12 @@ class SuperHeroRepository(
 		}
 	}
 
-	/*suspend fun getSuperHeroById(id: String): Result<SuperHero> {
+	suspend fun getSuperHeroById(id: Int): Result<SuperHero> {
 		return try {
 			val response = apiService.getSuperHeroById(id)
-			if (response.response == "success") {
-				Result.success(response.toModel()) // Usamos el mapper de la respuesta anterior
-			} else {
-				Result.failure(Exception(response.error))
-			}
+			Result.success(response.toModel())
 		} catch (e: Exception) {
 			Result.failure(e)
 		}
-	}*/
+	}
 }

@@ -8,7 +8,7 @@ import io.ktor.http.appendPathSegments
 
 interface SuperHeroAPIService {
 	suspend fun getAllSuperheroes(): List<SuperHeroDTO>
-	//suspend fun getSuperHeroById(id: String): SuperheroResponse
+	suspend fun getSuperHeroById(id: Int): SuperHeroDTO
 }
 
 class SuperHeroServiceImpl(
@@ -24,10 +24,10 @@ class SuperHeroServiceImpl(
 			}
 		}.body<List<SuperHeroDTO>>()
 
-	/*override suspend fun getSuperHeroById(id: String): SuperheroResponse =
+	override suspend fun getSuperHeroById(id: Int): SuperHeroDTO =
 		client.get(BASE_URL) {
 			url {
-				appendPathSegments(id)
+				appendPathSegments("/id/$id.json")
 			}
-		}.body()*/
+		}.body()
 }
