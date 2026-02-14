@@ -1,5 +1,6 @@
 package com.jsaldana.superheroapp.ui.navigation
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
@@ -27,9 +28,10 @@ import org.koin.androidx.compose.koinViewModel
 fun AppNavHost(
 	navController: NavHostController,
 	startDestination: Destination,
+	modifier: Modifier = Modifier, // 1. Añadimos el parámetro modifier
 	viewModel: MainViewModel = koinViewModel()
 ) {
-	NavHost(navController = navController, startDestination = startDestination.route) {
+	NavHost(navController = navController, startDestination = startDestination.route, modifier = modifier) {
 		Destination.entries.forEach { destination ->
 			composable(destination.route) {
 				when (destination) {
@@ -70,7 +72,6 @@ fun AppNavHost(
 }
 
 @Preview()
-// [START android_compose_components_navigationbarexample]
 @Composable
 fun NavigationBarExample(modifier: Modifier = Modifier) {
 	val navController = rememberNavController()
@@ -100,7 +101,12 @@ fun NavigationBarExample(modifier: Modifier = Modifier) {
 			}
 		}
 	) { contentPadding ->
-		AppNavHost(navController, startDestination)
+		// 3. Pasamos el contentPadding usando Modifier.padding()
+		AppNavHost(
+			navController = navController,
+			startDestination = startDestination,
+			modifier = Modifier.padding(contentPadding)
+		)
 	}
 }
 // [END android_compose_components_navigationbarexample]
