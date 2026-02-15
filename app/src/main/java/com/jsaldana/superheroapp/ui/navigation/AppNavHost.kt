@@ -28,42 +28,48 @@ import org.koin.androidx.compose.koinViewModel
 fun AppNavHost(
 	navController: NavHostController,
 	startDestination: Destination,
-	modifier: Modifier = Modifier, // 1. Añadimos el parámetro modifier
+	modifier: Modifier = Modifier,
 	viewModel: MainViewModel = koinViewModel()
 ) {
-	NavHost(navController = navController, startDestination = startDestination.route, modifier = modifier) {
+	NavHost(
+		navController = navController,
+		startDestination = startDestination.route,
+		modifier = modifier
+	) {
 		Destination.entries.forEach { destination ->
 			composable(destination.route) {
 				when (destination) {
 					Destination.DISCOVER -> SuperheroListScreen(
 						navController = navController,
 						state = viewModel.state,
+						isPaginating = viewModel.isPaginating, // Nuevo: Estado de carga extra
 						onLoad = { viewModel.getAllHeroes() },
+						onLoadMore = { viewModel.loadMoreHeroes() }, // Nuevo: Acción para cargar más
 						onHeroClick = { id -> navController.navigate("detail/$id") },
 					)
 
 					Destination.SEARCH -> SearchScreen(
 						viewModel = viewModel,
 						onHeroClick = { id ->
-							// Al hacer clic en un resultado, navega al detalle
 							navController.navigate("detail/$id")
 						}
 					)
 
-					Destination.PROFILE -> {}
+					Destination.PROFILE -> {
+						/* Por ahora vacío */
+					}
 				}
 			}
 		}
 
 		composable("detail/{heroId}") { backStackEntry ->
-			// Extraemos el ID (como Int, que es lo que pide tu servicio)
 			val heroId = backStackEntry.arguments?.getString("heroId")?.toIntOrNull() ?: 0
 
 			HeroDetailScreen(
 				heroId = heroId,
 				viewModel = viewModel,
 				onBack = {
-					viewModel.resetDetailState() // Opcional: limpiar antes de volver
+					viewModel.resetDetailState()
 					navController.popBackStack()
 				}
 			)
@@ -101,7 +107,6 @@ fun NavigationBarExample(modifier: Modifier = Modifier) {
 			}
 		}
 	) { contentPadding ->
-		// 3. Pasamos el contentPadding usando Modifier.padding()
 		AppNavHost(
 			navController = navController,
 			startDestination = startDestination,
@@ -109,4 +114,3 @@ fun NavigationBarExample(modifier: Modifier = Modifier) {
 		)
 	}
 }
-// [END android_compose_components_navigationbarexample]

@@ -17,6 +17,11 @@ class MainViewModel(
 	var state by mutableStateOf<SuperheroState>(SuperheroState.Idle)
 		private set
 
+	private var currentOffset = 0
+	private val pageSize = 5
+	var isPaginating by mutableStateOf(false)
+		private set
+
 	// Estado independiente para el detalle
 	var detailState by mutableStateOf<SuperheroState>(SuperheroState.Idle)
 		private set
@@ -42,12 +47,36 @@ class MainViewModel(
 	fun getAllHeroes() {
 		viewModelScope.launch {
 			state = SuperheroState.Loading
-			repository.getAllSuperheroes()
+			repository.getAllSuperheroes(1000, 1000)
 				.onSuccess { list ->
 					state = SuperheroState.Success(list) // Pasamos la lista completa
 				}
 				.onFailure { error ->
 					state = SuperheroState.Error(error.message ?: "Error desconocido")
+				}
+		}
+	}
+
+	// Función para cargar los siguientes 5
+	fun loadMoreHeroes() {
+		val currentState = state
+		if (isPaginating || currentState !is SuperheroState.Success) return
+
+		isPaginating = true
+		viewModelScope.launch {
+			repository.getAllSuperheroes(offset = currentOffset, limit = pageSize)
+				.onSuccess { newList ->
+					if (newList.isNotEmpty()) {
+						// Concatenamos la lista actual con la nueva
+						val updatedList = currentState.heroes + newList
+						state = SuperheroState.Success(updatedList)
+						currentOffset += newList.size
+					}
+					isPaginating = false
+				}
+				.onFailure {
+					isPaginating = false
+					// Opcional: manejar error de paginación silenciosamente
 				}
 		}
 	}
